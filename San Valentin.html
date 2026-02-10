@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Quieres ser mi Valentine's?</title>
+  <style>
+    body {
+      font-family: "Comic Sans MS", "Segoe UI", sans-serif;
+      background: linear-gradient(135deg,#ffd6e7,#ffeef5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }.card {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(255,105,180,0.25);
+  max-width: 420px;
+  text-align: center;
+  position: relative;
+}
+
+h1 {
+  color: #ff66a3;
+  margin-bottom: 15px;
+}
+
+p {
+  color: #666;
+}
+
+button {
+  border: none;
+  padding: 12px 22px;
+  margin: 10px;
+  border-radius: 14px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+#yesBtn {
+  background-color: #ff85b3;
+  color: white;
+  box-shadow: 0 6px 15px rgba(255,105,180,0.4);
+}
+
+#noBtn {
+  background-color: #ffc2d6;
+  color: #b30059;
+}
+
+#message {
+  margin-top: 15px;
+  color: #ff4d88;
+  font-weight: bold;
+  min-height: 24px;
+}
+
+.heart {
+  position: absolute;
+  font-size: 20px;
+  animation: floatUp 2s linear forwards;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-200px); opacity: 0; }
+}
+
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>¿Quieres ser mi Valentine? 💌</h1>
+    <p>Prometo que será algo muy bonito 🥺💕</p>
+    <div>
+      <button id="yesBtn">Sí 💖</button>
+      <button id="noBtn">No 👉👈</button>
+    </div>
+    <div id="message"></div>
+  </div>  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const message = document.getElementById("message");
+
+    let yesSize = 18;
+    let noClicks = 0;
+
+    const mensajes = [
+      "¿Estás segura? 🥺",
+      "Piénsalo otra vez 😳",
+      "Creo que te equivocaste 🙈",
+      "Di que síiii 💕"
+    ];
+
+    function crearCorazon() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = "💗";
+      heart.style.left = Math.random()*100 + "%";
+      heart.style.top = "70%";
+      document.body.appendChild(heart);
+      setTimeout(()=>heart.remove(),2000);
+    }
+
+    noBtn.addEventListener("click", () => {
+      if (noClicks < mensajes.length) {
+        message.textContent = mensajes[noClicks];
+      } else {
+        message.textContent = "El destino dice que presiones SÍ 😌";
+      }
+
+      yesSize += 14;
+      yesBtn.style.fontSize = yesSize + "px";
+      yesBtn.style.padding = (yesSize * 0.6) + "px " + (yesSize) + "px";
+
+      noClicks++;
+
+      if (noClicks >= 5) {
+        noBtn.style.display = "none";
+      }
+    });
+
+    yesBtn.addEventListener("click", () => {
+      for(let i=0;i<25;i++){
+        setTimeout(crearCorazon,i*80);
+      }
+
+      document.querySelector(".card").innerHTML = `
+        <h1>✨ Invitación Especial ✨</h1>
+        <p>Quiero invitarte a una cita muy bonita conmigo 💕</p>
+        <p>📅 14 de Febrero<br>📍 Lugar Pomodoro<br> Gracias por hacer mi vida mas especial, Te amo ❤️</p>
+        <h2>🌸 Será un día tierno y especial 🌸</h2>
+      `;
+    });
+  </script></body>
+</html>
